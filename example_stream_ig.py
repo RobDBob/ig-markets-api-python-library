@@ -8,7 +8,8 @@ IG Markets Stream API sample with Python
 
 import logging
 
-from trading_ig import IGService, IGStreamService
+from trading_ig.IGService import IGService
+from trading_ig.IGStreamService import IGStreamService
 from trading_ig.config import config
 from trading_ig.lightstreamer import Subscription
 
@@ -32,9 +33,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
     # logging.basicConfig(level=logging.DEBUG)
 
-    ig_service = IGService(
-        config.username, config.password, config.api_key, config.acc_type, acc_number=config.acc_number
-    )
+    ig_service = IGService(config)
 
     ig_stream_service = IGStreamService(ig_service)
     ig_stream_service.create_session()
@@ -44,7 +43,8 @@ def main():
     subscription_prices = Subscription(
         mode="MERGE",
         #items=["L1:CS.D.GBPUSD.CFD.IP", "L1:CS.D.USDJPY.CFD.IP"], # sample CFD epics
-        items=["L1:CS.D.GBPUSD.TODAY.IP", "L1:IX.D.FTSE.DAILY.IP"], # sample spreadbet epics
+        # items=["L1:CS.D.GBPUSD.TODAY.IP", "L1:IX.D.FTSE.DAILY.IP"], # sample spreadbet epics
+        items=["CS.D.GBPUSD.TODAY.IP", "CS.D.GBPEUR.TODAY.IP", "CS.D.EURGBP.TODAY.IP"],
         fields=["UPDATE_TIME", "BID", "OFFER", "CHANGE", "MARKET_STATE"],
     )
 

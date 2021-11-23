@@ -23,7 +23,7 @@ from .version import (
 )
 
 from .rest import IGService
-from .stream import IGStreamService
+from .IGStreamService import IGStreamService
 
 __all__ = [
     "IGService",
